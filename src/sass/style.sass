@@ -1,0 +1,147 @@
+@mixin center()
+  display: flex
+  justify-content: center
+  align-items: center
+
+@mixin size($w,$h:$w)
+  width: $w
+  height: $h
+
+$nav_bg: #4a9de2
+$li_color: #00408b
+$border: #00408b
+$todo_bg: #e1e1e1
+$item_bg: #f2f2f2
+$star_color: #f5a623
+
+*
+  margin: 0
+  padding: 0
+
+.active
+  border-bottom: solid 5px $border
+  color: #ffffff
+.completed
+  text-decoration: line-through
+.toolbar .center
+  +center
+html, body, #app
+  +size(360px,640px)
+  background-color: #000
+  margin: 0 auto
+  overflow: hidden
+.home
+  +size(100%,80%)
+  +center
+  .works
+    width: 100%
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-wrap: wrap
+    a
+      +size(30%,60px)
+      +center
+      flex-direction: column
+      margin: 10px auto
+      background-color: $nav_bg
+      color: #fff
+      hr
+        width: 100%
+        background-color: #777
+        margin: 5px 0
+.todolist
+  +size(100%)
+  margin: 0 auto
+  background-color: $todo_bg
+  .nav
+    +size(100%,56px)
+    background-color: $nav_bg
+    +center
+    ul
+      +size(80%,100%)
+      +center
+      list-style: none
+      margin: 0 auto
+      li:nth-child(2)
+        margin: 0 30px
+      li
+        height: 100%
+        a
+          height: 90%
+          text-decoration: none
+          color: $li_color
+          +center
+  .items
+    width: 80%
+    margin: 0 auto
+    position: relative
+    .additem
+      position: absolute
+      bottom: -30px
+      right: 0
+    .item_row
+      //height: 102px
+      background-color: $item_bg
+      text-align: left
+      margin: 10px 0
+      padding: 5px 0 0 0
+      hr
+        margin: 10px 0
+      .title
+        padding: 0px 25px
+        position: relative
+        .checkbox
+          position: absolute
+          top: 5px
+          left: 5px
+        .star, .edit
+          position: absolute
+          top: 5px
+        .star
+          right: 30px
+        .edit
+          right: 5px
+        .texts
+          label
+            display: flex
+            align-items: center
+            justify-content: flex-start
+            height: 30px
+        .editing 
+          input
+            width: 80%
+            background-color: $item_bg
+            border: none
+      .content
+        padding: 0px 25px
+        svg
+          font-size: 16px
+          margin: 0 5px
+        .texts
+          display: flex
+          height: 30px
+        .editing
+          padding: 10px 0
+          .date, .file, .comment
+            margin: 5px 0
+          .date input
+            width: 80%
+            display: block
+            margin: 0 auto
+          .file input
+            display: none
+          .comment textarea
+            +size(100%,150px)
+      .btns
+        button
+          border: none
+          +size(50%,30px)
+        .cancel
+          background-color: #fff
+          color: #d0021b
+        .add
+          background-color: $nav_bg
+          color: white
+      
+    
