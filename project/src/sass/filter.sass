@@ -1,0 +1,138 @@
+$nav_bg: #7828B4
+
+.filter
+  +size(100%)
+  background-color: #f2f2f2
+  // position: relative
+  .nav
+    +size(100%,60px)
+    +center
+    background-color: $nav_bg
+    .sidebar-btn
+      +size(50px,100%)
+      +center
+      color: #fff
+      margin: 0 5px
+    .title
+      flex: auto
+      font-size: 23px
+      color: #fff
+      margin: 0 20px 0 5px
+    .search
+      flex: auto
+      border-bottom: solid 1px #000
+      position: relative
+      padding: 0 0 0 15px
+      margin: 0 5px
+      .icon
+        position: absolute
+        left: 0
+        top: 8px
+        color: #fff
+      input
+        +size(100%,30px)
+        margin: 0 5px
+        border: none
+        background-color: $nav_bg
+        color: rgba(255,255,255,0.5)
+        &::placeholder
+          color: rgba(255,255,255,0.5)
+
+  .sidebar
+    +size(80%, calc(100% - 60px))
+    background-color: #ebebeb
+    position: absolute
+    top: 60px
+    left: 0px
+    z-index: 1
+    transform: translateX(-1000px)
+    transition: 0.5s
+    .location, .date, .categories
+      +size(90%, calc(100% / 4))
+      +center
+      flex-direction: column
+      margin: 0 auto
+      p
+        +size(100%,30px)
+        text-align: left
+        font-size: 20px
+        font-weight: bold
+    .location
+      select
+        +size(80%,30px)
+    .date
+      border-top: solid 1px #d7d7d7
+      border-bottom: solid 1px #d7d7d7
+      input
+        +size(50%,30px)
+      .from, .to
+        margin: 5px auto
+    .categories
+      height: calc(100% / 3)
+      .checkboxs
+        +center
+        flex-direction: column
+        .checkbox
+          label
+            display: inline-block
+            width: 120px
+            text-align: left
+            margin-left: 10px
+  .slide-in
+    transform: translateX(0)
+
+  .contents
+    +size(95%, calc(100% - 80px))
+    margin: 0 auto
+    .title
+      text-align: left
+    .items
+      +size(100%, calc(100% - 50px))
+      overflow-y: auto
+      &::-webkit-scrollbar
+        display: none
+      .item_row
+        +size(100%,130px)
+        background-color: #fff
+        margin: 5px auto
+        display: flex
+        .img
+          flex: none
+          +size(100px)
+          img
+            +size(100px)
+        .details
+          flex: auto
+          height: 130px
+          padding: 0 10px
+          text-align: left
+          position: relative
+          .name
+            height: 20px
+            font-size: 20px
+            color: #9013FE
+          .description
+            +size(110%,80px)
+            word-break: break-all
+            overflow: hidden
+            font-size: 9px
+            transform: scale(calc(9 / 12))
+            position: relative
+            &::after
+              content: '...more'
+              background-color: #fff
+              color: blue
+              position: absolute
+              bottom: 0
+              right: 0
+            &::-webkit-scrollbar
+              display: none
+          .info
+            +size(120%,40px)
+            font-size: 9px
+            transform: scale(calc(9 / 12))
+            position: absolute
+            bottom: 0
+            left: -20px
+            span
+              margin: 0 0 5px 5px
