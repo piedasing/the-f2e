@@ -45,7 +45,7 @@
             .checkbox
               input(type="checkbox" id="Outdoors")
               label(for="Outdoors") Outdoors
-      .contents(v-on:click="showSidebar = !showSidebar")
+      .contents(v-on:click="showSidebar = false")
         h3.title Showing {{ items.length }} results by...
         .items
           .item_row(v-for="item in items")
@@ -82,7 +82,10 @@ export default {
     const that = this
     this.axios.get(api)
       .then((res) => {
-        that.items = res.data.result.records
+        let data = res.data.result.records
+        for (let i = 0; i < 10; i++) {
+          that.items.push(data[i])
+        }
         console.log(that.items)
       })
       .catch((err) => {
