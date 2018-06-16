@@ -16,6 +16,8 @@ https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-45
 
 使用技術:
 
-week1: TodoList --> Pug、Sass、OnsenUI、Vue
+主要使用: Pug、Sass、OnsenUI、Vue
 
-week2: Filter   --> Pug、Sass、OnsenUI、Vue、Axios
+week1: TodoList --> 使用 Flexbox 排版
+
+week2: Filter   --> 使用 Axios 撈取資料
