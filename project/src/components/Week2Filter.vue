@@ -18,7 +18,8 @@
         .location
           p Location
           select
-            option Taiwan
+            option(v-for="zone in zones")
+              span {{ zone }}
         .date
           p Date
           .from
@@ -30,25 +31,22 @@
         .categories
           p Categories
           .checkboxs
-            .checkbox
-              input(type="checkbox" id="all")
+            .checkbox(v-on:click="checkStatus = 'all'")
+              input(type="checkbox" checked id="all")
               label(for="all") ALL
-            .checkbox
-              input(type="checkbox" id="Entertainment")
-              label(for="Entertainment") Entertainment
-            .checkbox
-              input(type="checkbox" id="Food")
-              label(for="Food") Food
-            .checkbox
-              input(type="checkbox" id="Learning")
-              label(for="Learning") Learning
-            .checkbox
-              input(type="checkbox" id="Outdoors")
-              label(for="Outdoors") Outdoors
+            .checkbox(v-on:click="checkStatus = 'allDays'")
+              input(type="checkbox" id="allDays")
+              label(for="allDays") 全天候開放
+            .checkbox(v-on:click="checkStatus = 'mondayNotOpen'")
+              input(type="checkbox" id="mondayNotOpen")
+              label(for="mondayNotOpen") 每周一休館
+            .checkbox(v-on:click="checkStatus = 'forFree'")
+              input(type="checkbox" id="forFree")
+              label(for="forFree") 全天候開放
       .contents(v-on:click="showSidebar = false")
-        h3.title Showing {{ items.length }} results by...
+        h3.title Showing {{ filterItems.length }} results by...
         .items
-          .item_row(v-for="item in items")
+          .item_row(v-for="item in filterItems")
             .img
               img(:src="item.Picture1")
             .details
@@ -69,7 +67,9 @@ export default {
   data () {
     return {
       items: [],
-      showSidebar: false
+      zones: [],
+      showSidebar: false,
+      checkStatus: 'all'
     }
   },
   methods: {
@@ -83,14 +83,49 @@ export default {
     this.axios.get(api)
       .then((res) => {
         let data = res.data.result.records
-        for (let i = 0; i < 10; i++) {
-          that.items.push(data[i])
-        }
-        console.log(that.items)
+        let zone = new Set()
+        let repeat = new Set()
+        that.items = data
+        // console.log(that.items)
+        data.forEach(item => {
+          zone.has(item.Zone) ? repeat.add(item.Zone) : zone.add(item.Zone)
+        })
+        that.zones = [...zone]
+        // console.log(that.zones)
+        console.log('資料讀取完成!')
       })
       .catch((err) => {
+        alert(err)
         console.log(err)
       })
+  },
+  computed: {
+    filterItems () {
+      let newItems = []
+      const that = this
+      if (that.checkStatus === 'all') {
+        newItems = that.items
+      } else if (that.checkStatus === 'alldays') {
+        that.items.forEach((item, inedx) => {
+          if (item.Opentime.indexOf('全天候開放') !== -1) {
+            newItems.push(item)
+          }
+        })
+      } else if (that.checkStatus === 'mondayNotOpen') {
+        that.items.forEach((item, inedx) => {
+          if (item.Opentime.indexOf('週一休館') !== -1) {
+            newItems.push(item)
+          }
+        })
+      } else if (that.checkStatus === 'forFree') {
+        that.items.forEach((item, inedx) => {
+          if (item.Opentime.indexOf('免費參觀') !== -1) {
+            newItems.push(item)
+          }
+        })
+      }
+      return newItems
+    }
   }
 }
 </script>
