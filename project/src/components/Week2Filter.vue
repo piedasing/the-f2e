@@ -42,7 +42,7 @@
               label(for="mondayNotOpen") 每周一休館
             .checkbox(v-on:click="checkStatus = 'forFree'")
               input(type="checkbox" id="forFree")
-              label(for="forFree") 全天候開放
+              label(for="forFree") 免費參觀
       .contents(v-on:click="showSidebar = false")
         h3.title Showing {{ filterItems.length }} results by...
         .items
@@ -119,7 +119,7 @@ export default {
         })
       } else if (that.checkStatus === 'forFree') {
         that.items.forEach((item, inedx) => {
-          if (item.Opentime.indexOf('免費參觀') !== -1) {
+          if (item.Ticketinfo.indexOf('免費參觀') !== -1) {
             newItems.push(item)
           }
         })
