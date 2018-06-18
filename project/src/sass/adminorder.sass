@@ -1,0 +1,97 @@
+*
+  &::-webkit-scrollbar
+    display: none
+.adminorder
+  +size(100%)
+  .nav
+    +size(100%,40px)
+    +center
+    justify-content: flex-start
+    background-color: #000
+    color: #fff
+    position: relative
+    .menubtn
+      position: absolute
+      right: 20px
+  .menu
+    +size(70%, calc(40px * 3 + 10px))
+    background-color: #000
+    position: absolute
+    top: 40px
+    right: 0
+    z-index: 999
+    transform: translateY(-500px)
+    transition: 0.5s
+    li
+      list-style: none
+      +size(100%, calc(100% / 3))
+      +center
+      flex-direction: column
+      border-bottom: solid 1px #fff
+      &:hover
+        background-color: #ddd
+        a
+          color: #000
+      a
+        color: #fff
+        text-decoration: none
+    .active
+      background-color: #ddd
+      a
+        color: #000
+  .menu-slide-in
+    transform: translateY(0)
+  .overview
+    .swiper-button-next, .swiper-button-prev
+      +size(30px,25px)
+      top: 60%
+    .swiper-slide
+      &:nth-child(1) .list-item
+        color: #7ED321
+      &:nth-child(2) .list-item
+        color: #D0021B
+      &:nth-child(3) .list-item
+        color: #4A90E2
+    .card
+      background-color: #fff
+      width: 95%
+      height: 120px
+      margin: 5px auto
+      +center
+      flex-direction: column
+      .list
+        .list-header, .list-item 
+          background-color: #fff
+        .list-header
+          color: #000
+          font-weight: 900
+          font-size: 16px
+          span
+            margin-left: 5px
+        .list-item
+          font-size: 28px
+    .activity
+      +size(95%,300px)
+      margin: 0 auto
+      background-color: #fff
+      border-radius: 10px
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .12)
+      #myChart
+        +size(100%)
+    .transaction
+      +size(95%,300px)
+      margin: 0 auto
+      .card, .list
+        +size(100%)
+      .list .list-item .center
+        flex-direction: column
+        align-items: flex-start
+        .col
+          margin-bottom: 5px
+          i
+            +size(30px)
+          span
+            margin-left: 5px
+            font-size: 12px
+        
+      

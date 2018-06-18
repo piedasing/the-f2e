@@ -7,6 +7,7 @@ import App from './App'
 import 'onsenui/css/onsenui.css'
 import 'onsenui/css/onsen-css-components.css'
 import './sass/style.sass'
+import '@fortawesome/fontawesome/styles.css'
 
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'

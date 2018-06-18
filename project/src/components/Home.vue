@@ -9,7 +9,7 @@
           a(@click="push(week.key)")
             .title {{ week.title }}
             hr
-            .name {{ key < 2 ? week.name : 'unknown' }}
+            .name {{ key < 3 ? week.name : 'unknown' }}
 </template>
 
 <script>
@@ -26,8 +26,8 @@ const weeks = [
   },
   {
     title: 'week3',
-    key: 'Week1TodoList',
-    name: 'TodoList'
+    key: 'Week3AdminOrder',
+    name: 'AdminOrder'
   },
   {
     title: 'week4',

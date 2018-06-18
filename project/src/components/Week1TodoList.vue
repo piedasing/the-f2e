@@ -121,7 +121,7 @@ var filters = {
 }
 
 export default {
-  name: 'Week1_TodoList',
+  name: 'Week1TodoList',
   data () {
     return {
       items: items,

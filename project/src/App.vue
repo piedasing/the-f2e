@@ -18,11 +18,12 @@
 import Home from './components/Home'
 import Week1TodoList from './components/Week1TodoList'
 import Week2Filter from './components/Week2Filter'
+import Week3AdminOrder from './components/Week3AdminOrder'
 
 export default {
   name: 'App',
   components: {
-    Home, Week1TodoList, Week2Filter
+    Home, Week1TodoList, Week2Filter, Week3AdminOrder
   },
   data () {
     return {

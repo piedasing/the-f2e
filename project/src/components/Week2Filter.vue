@@ -63,7 +63,7 @@
 
 <script>
 export default {
-  name: 'Week2_Filter',
+  name: 'Week2Filter',
   data () {
     return {
       items: [],
@@ -108,28 +108,6 @@ export default {
     filterItems () {
       let newItems = []
       const that = this
-      // if (that.chosedStatus === 'all') {
-      //   newItems = that.items
-      // }
-      // } else if (that.chosedStatus === 'allDays') {
-      //   that.items.forEach((item, inedx) => {
-      //     if (item.Opentime === '全天候開放') {
-      //       newItems.push(item)
-      //     }
-      //   })
-      // } else if (that.chosedStatus === 'mondayNotOpen') {
-      //   that.items.forEach((item, inedx) => {
-      //     if (item.Opentime.indexOf('週一休館') !== -1) {
-      //       newItems.push(item)
-      //     }
-      //   })
-      // } else if (that.chosedStatus === 'forFree') {
-      //   that.items.forEach((item, inedx) => {
-      //     if (item.Ticketinfo.indexOf('免費參觀') !== -1) {
-      //       newItems.push(item)
-      //     }
-      //   })
-      // }
       that.choseOption.forEach(option => {
         if (that.chosedStatus === option) {
           that.items.forEach((item, inedx) => {
