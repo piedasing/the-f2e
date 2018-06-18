@@ -69,10 +69,10 @@ $nav_bg: #7828B4
         margin: 5px auto
     .categories
       height: calc(100% / 3)
-      .checkboxs
+      .radioboxs
         +center
         flex-direction: column
-        .checkbox
+        .radiobox
           label
             display: inline-block
             width: 120px
@@ -129,10 +129,13 @@ $nav_bg: #7828B4
               display: none
           .info
             +size(120%,40px)
+            overflow: hidden
             font-size: 9px
             transform: scale(calc(9 / 12))
             position: absolute
             bottom: 0
             left: -20px
-            span
-              margin: 0 0 5px 5px
+            .location, .opentime
+              span
+                margin: 0 0 5px 5px
+              

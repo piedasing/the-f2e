@@ -30,18 +30,18 @@
             input(type="datetime-local")
         .categories
           p Categories
-          .checkboxs
-            .checkbox(v-on:click="checkStatus = 'all'")
-              input(type="checkbox" checked id="all")
+          .radioboxs
+            .radiobox(v-on:click="chosedStatus = 'all'")
+              input(type="radio" name="choose" checked id="all")
               label(for="all") ALL
-            .checkbox(v-on:click="checkStatus = 'allDays'")
-              input(type="checkbox" id="allDays")
+            .radiobox(v-on:click="chosedStatus = 'allDays'")
+              input(type="radio" name="choose" id="allDays")
               label(for="allDays") 全天候開放
-            .checkbox(v-on:click="checkStatus = 'mondayNotOpen'")
-              input(type="checkbox" id="mondayNotOpen")
+            .radiobox(v-on:click="chosedStatus = 'mondayNotOpen'")
+              input(type="radio" name="choose" id="mondayNotOpen")
               label(for="mondayNotOpen") 每周一休館
-            .checkbox(v-on:click="checkStatus = 'forFree'")
-              input(type="checkbox" id="forFree")
+            .radiobox(v-on:click="chosedStatus = 'forFree'")
+              input(type="radio" name="choose" id="forFree")
               label(for="forFree") 免費參觀
       .contents(v-on:click="showSidebar = false")
         h3.title Showing {{ filterItems.length }} results by...
@@ -69,7 +69,8 @@ export default {
       items: [],
       zones: [],
       showSidebar: false,
-      checkStatus: 'all'
+      choseOption: ['all', 'allDays', 'mondayNotOpen', 'forFree'],
+      chosedStatus: 'all'
     }
   },
   methods: {
@@ -78,20 +79,24 @@ export default {
     }
   },
   created () {
-    const api = 'https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97'
+    // 憑證問題，所以改成用自己的json檔案方式去撈資料
+    // const api = 'https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97'
+    const api = 'https://raw.githubusercontent.com/piedasing/json_test/master/json/api_week2.json'
     const that = this
     this.axios.get(api)
       .then((res) => {
         let data = res.data.result.records
         let zone = new Set()
-        let repeat = new Set()
         that.items = data
+        that.newItems = data
         // console.log(that.items)
+        // 抓出全部的區域有哪些地方，並且不重複
         data.forEach(item => {
-          zone.has(item.Zone) ? repeat.add(item.Zone) : zone.add(item.Zone)
+          if (zone.has(item.Zone) !== -1) {
+            zone.add(item.Zone)
+          }
         })
-        that.zones = [...zone]
-        // console.log(that.zones)
+        that.zones = [...zone] // 解構賦值
         console.log('資料讀取完成!')
       })
       .catch((err) => {
@@ -103,27 +108,54 @@ export default {
     filterItems () {
       let newItems = []
       const that = this
-      if (that.checkStatus === 'all') {
-        newItems = that.items
-      } else if (that.checkStatus === 'alldays') {
-        that.items.forEach((item, inedx) => {
-          if (item.Opentime.indexOf('全天候開放') !== -1) {
-            newItems.push(item)
-          }
-        })
-      } else if (that.checkStatus === 'mondayNotOpen') {
-        that.items.forEach((item, inedx) => {
-          if (item.Opentime.indexOf('週一休館') !== -1) {
-            newItems.push(item)
-          }
-        })
-      } else if (that.checkStatus === 'forFree') {
-        that.items.forEach((item, inedx) => {
-          if (item.Ticketinfo.indexOf('免費參觀') !== -1) {
-            newItems.push(item)
-          }
-        })
-      }
+      // if (that.chosedStatus === 'all') {
+      //   newItems = that.items
+      // }
+      // } else if (that.chosedStatus === 'allDays') {
+      //   that.items.forEach((item, inedx) => {
+      //     if (item.Opentime === '全天候開放') {
+      //       newItems.push(item)
+      //     }
+      //   })
+      // } else if (that.chosedStatus === 'mondayNotOpen') {
+      //   that.items.forEach((item, inedx) => {
+      //     if (item.Opentime.indexOf('週一休館') !== -1) {
+      //       newItems.push(item)
+      //     }
+      //   })
+      // } else if (that.chosedStatus === 'forFree') {
+      //   that.items.forEach((item, inedx) => {
+      //     if (item.Ticketinfo.indexOf('免費參觀') !== -1) {
+      //       newItems.push(item)
+      //     }
+      //   })
+      // }
+      that.choseOption.forEach(option => {
+        if (that.chosedStatus === option) {
+          that.items.forEach((item, inedx) => {
+            switch (option) {
+              case 'all':
+                newItems = that.items
+                break
+              case 'allDays':
+                if (item.Opentime.indexOf('全天候開放') !== -1) {
+                  newItems.push(item)
+                }
+                break
+              case 'mondayNotOpen':
+                if (item.Opentime.indexOf('週一休館') !== -1) {
+                  newItems.push(item)
+                }
+                break
+              case 'forFree':
+                if (item.Ticketinfo.indexOf('免費參觀') !== -1) {
+                  newItems.push(item)
+                }
+                break
+            }
+          })
+        }
+      })
       return newItems
     }
   }
